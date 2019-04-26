@@ -19,6 +19,23 @@ fun showCase() {
 ```
 If you want to achieve multithreading, make sure to run the coroutine with the Default dispatcher.
 
+## Gradle
+To include this in you gradle project add the following to you root build.gradle file.
+```gradle
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+After that, include this line in your module build.gradle.
+```gradle
+dependencies {
+    implementation 'com.github.cvb941:kotlin-parallel-collection-operations:1.0'
+}
+```
+
 ## Future
 In the future, I would like parallel reduce and other transformation functions to be implemented,
 as well as chunked variations of the map and future operations.
