@@ -1,0 +1,2 @@
+rootProject.name = 'Parallel coroutine operations on Kotlin collections'
+include 'transformations'
