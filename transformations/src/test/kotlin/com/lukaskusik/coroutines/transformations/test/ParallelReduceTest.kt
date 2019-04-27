@@ -51,7 +51,7 @@ class ParallelReduceTest {
         theTest(0)
     }
 
-   @Test(expected = IllegalArgumentException::class)
+    @Test(expected = IllegalArgumentException::class)
     fun parallelReduceNegativeChunksError() {
         theTest(-10)
     }
