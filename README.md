@@ -1,14 +1,14 @@
 # Parallel coroutine operations on Kotlin collections
-Provides parallelized map, reduce, etc. operations using coroutines in Kotlin.
+Provides parallelized *map*, *reduce*, etc. operations using coroutines in Kotlin.
 
-At this point, there is only a parallel map implementation called .mapParallel(). It is implemented like this.
+The parallel *map* implementation is called *.mapParallel()*. It is implemented like this.
 ```kotlin
 suspend fun <T, R> Iterable<T>.mapParallel(transform: (T) -> R): List<R> = coroutineScope {
     map { async { transform(it) } }.map { it.await() }
 }
 ```
 
-Example of using the parallel map operation.
+Example of using the parallel *map* operation.
 ```kotlin
 fun showCase() {
   var list = listOf(1,2,3)
@@ -17,7 +17,10 @@ fun showCase() {
   }
 }
 ```
-If you want to achieve multithreading, make sure to run the coroutine with the Default dispatcher.
+
+There is also the parallel *reduce* operation with chunked variations, which can be used to perform **associative** operations on a collection, like *sum*.
+
+**Note:** If you want to achieve multithreading, make sure to run the coroutine with the Default dispatcher.
 
 ## Chunked operations
 Chunked operations improve performance since they split the collection into just a couple of segments,
