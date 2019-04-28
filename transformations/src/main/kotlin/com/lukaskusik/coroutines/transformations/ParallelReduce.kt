@@ -32,6 +32,8 @@ suspend fun <T> Collection<T>.reduceParallel(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
     operation: (T, T) -> T
 ): T {
+    if (chunksCount <= 0) throw IllegalArgumentException("chunksCount must be a positive integer")
+
     val chunkSize = Math.ceil(size / chunksCount.toDouble()).toInt()
     return asIterable().reduceParallel(chunkSize, operation)
 }

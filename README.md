@@ -11,7 +11,7 @@ suspend fun <T, R> Iterable<T>.mapParallel(transform: (T) -> R): List<R> = corou
 Example of using the parallel *map* operation.
 ```kotlin
 fun showCase() {
-  var list = listOf(1,2,3)
+  val list = listOf(1,2,3)
   runBlocking(Dispatchers.Default) {
       var mappedList = list.mapParallel { it * 2 } // Results in [2,4,6]
   }
@@ -47,7 +47,7 @@ allprojects {
 After that, include this line in your module build.gradle.
 ```gradle
 dependencies {
-    implementation 'com.github.cvb941:kotlin-parallel-collection-operations:1.1'
+    implementation 'com.github.cvb941:kotlin-parallel-operations:1.2'
 }
 ```
 

@@ -12,39 +12,76 @@ suspend fun <T, R> Iterable<T>.mapParallel(
     map { async { transform(it) } }.map { it.await() }
 }
 
+//region Arrays
 /**
- *  Performs map transformation on the iterable using coroutines.
- *  The chunkSize parameter is used to run multiple transformations on a single coroutine.
- *
- *  @param chunkSize Size of each sub-collection that will be reduced in each coroutine.
+ *  Performs map transformation on the array using coroutines.
  */
-suspend fun <T, R> Iterable<T>.mapParallelChunked(
-    chunkSize: Int,
+suspend fun <T, R> Array<out T>.mapParallel(
     transform: (T) -> R
 ): List<R> = coroutineScope {
-    chunked(chunkSize).map { subChunk ->
-        async {
-            subChunk.map(transform)
-        }
-    }.flatMap {
-        it.await()
-    }
+    map { async { transform(it) } }.map { it.await() }
 }
 
 /**
- *  Performs map transformation on the iterable using coroutines.
- *
- *  It can split the collection into multiple chunks using the chunksCount parameter.
- *  Each chunk will then run on a single coroutine, minimizing thread management, etc.
- *  The default and recommended chunksCount for multithreading is the number of CPU threads, e.g. 4 or 8.
- *
- *  @param chunksCount How many chunks should the collection be split into. Defaults to the number of available processors.
- *
+ *  Performs map transformation on the array using coroutines.
  */
-suspend fun <T, E> Collection<T>.mapParallelChunked(
-    chunksCount: Int = Runtime.getRuntime().availableProcessors(),
-    transform: (T) -> E
-): List<E> {
-    val chunkSize = Math.ceil(size / chunksCount.toDouble()).toInt()
-    return asIterable().mapParallelChunked(chunkSize, transform)
+suspend fun <R> ByteArray.mapParallel(
+    transform: (Byte) -> R
+): List<R> = coroutineScope {
+    map { async { transform(it) } }.map { it.await() }
 }
+
+/**
+ *  Performs map transformation on the array using coroutines.
+ */
+suspend fun <R> ShortArray.mapParallel(
+    transform: (Short) -> R
+): List<R> = coroutineScope {
+    map { async { transform(it) } }.map { it.await() }
+}
+
+/**
+ *  Performs map transformation on the array using coroutines.
+ */
+suspend fun <R> IntArray.mapParallel(
+    transform: (Int) -> R
+): List<R> = coroutineScope {
+    map { async { transform(it) } }.map { it.await() }
+}
+
+/**
+ *  Performs map transformation on the array using coroutines.
+ */
+suspend fun <R> LongArray.mapParallel(
+    transform: (Long) -> R
+): List<R> = coroutineScope {
+    map { async { transform(it) } }.map { it.await() }
+}
+
+/**
+ *  Performs map transformation on the array using coroutines.
+ */
+suspend fun <R> FloatArray.mapParallel(
+    transform: (Float) -> R
+): List<R> = coroutineScope {
+    map { async { transform(it) } }.map { it.await() }
+}
+
+/**
+ *  Performs map transformation on the array using coroutines.
+ */
+suspend fun <R> DoubleArray.mapParallel(
+    transform: (Double) -> R
+): List<R> = coroutineScope {
+    map { async { transform(it) } }.map { it.await() }
+}
+
+/**
+ *  Performs map transformation on the array using coroutines.
+ */
+suspend fun <R> BooleanArray.mapParallel(
+    transform: (Boolean) -> R
+): List<R> = coroutineScope {
+    map { async { transform(it) } }.map { it.await() }
+}
+//endregion

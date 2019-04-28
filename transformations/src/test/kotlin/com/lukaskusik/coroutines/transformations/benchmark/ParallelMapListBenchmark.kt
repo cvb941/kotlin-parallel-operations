@@ -1,22 +1,20 @@
 package com.lukaskusik.coroutines.transformations.benchmark
 
 import com.carrotsearch.junitbenchmarks.AbstractBenchmark
-import com.carrotsearch.junitbenchmarks.annotation.AxisRange
-import com.carrotsearch.junitbenchmarks.annotation.BenchmarkMethodChart
 import com.lukaskusik.coroutines.transformations.mapParallel
 import com.lukaskusik.coroutines.transformations.mapParallelChunked
-import com.lukaskusik.coroutines.transformations.test.ParallelMapTest
+import com.lukaskusik.coroutines.transformations.test.ParallelMapListTest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
-class ParallelMapBenchmark : AbstractBenchmark() {
+class ParallelMapListBenchmark : AbstractBenchmark() {
 
     companion object {
-        const val LIST_SIZE = 1000
+        const val LIST_SIZE = 100
     }
 
-    private val list = ParallelMapTest.getRandomListOfSize(LIST_SIZE)
+    private val list = ParallelMapListTest.getRandomListOfSize(LIST_SIZE)
 
 
     @Test

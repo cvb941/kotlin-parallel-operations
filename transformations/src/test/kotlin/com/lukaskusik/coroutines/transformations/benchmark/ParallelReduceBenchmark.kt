@@ -2,7 +2,7 @@ package com.lukaskusik.coroutines.transformations.benchmark
 
 import com.carrotsearch.junitbenchmarks.AbstractBenchmark
 import com.lukaskusik.coroutines.transformations.reduceParallel
-import com.lukaskusik.coroutines.transformations.test.ParallelMapTest
+import com.lukaskusik.coroutines.transformations.test.ParallelMapListTest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
@@ -13,7 +13,7 @@ class ParallelReduceBenchmark : AbstractBenchmark() {
         const val LIST_SIZE = 1000
     }
 
-    private val list = ParallelMapTest.getRandomListOfSize(LIST_SIZE)
+    private val list = ParallelMapListTest.getRandomListOfSize(LIST_SIZE)
 
     private val operation = { acc: Int, i: Int -> Thread.sleep(1); acc + i }
 
