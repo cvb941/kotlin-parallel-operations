@@ -47,7 +47,7 @@ allprojects {
 After that, include this line in your module build.gradle.
 ```gradle
 dependencies {
-    implementation 'com.github.cvb941:kotlin-parallel-operations:1.2'
+    implementation 'com.github.cvb941:kotlin-parallel-operations:1.3'
 }
 ```
 

@@ -1,4 +1,4 @@
-package com.lukaskusik.coroutines.transformations
+package com.lukaskusik.coroutines.transformations.mapinplace
 
 fun <T> Array<T>.mapInPlaceIndexed(transform: (index: Int, T) -> T): Array<T> {
     for (i in this.indices) this[i] = transform(i, this[i])

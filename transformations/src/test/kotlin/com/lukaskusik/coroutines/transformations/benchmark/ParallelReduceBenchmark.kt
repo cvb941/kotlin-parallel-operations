@@ -1,7 +1,7 @@
 package com.lukaskusik.coroutines.transformations.benchmark
 
 import com.carrotsearch.junitbenchmarks.AbstractBenchmark
-import com.lukaskusik.coroutines.transformations.reduceParallel
+import com.lukaskusik.coroutines.transformations.reduce.reduceParallel
 import com.lukaskusik.coroutines.transformations.test.ParallelMapListTest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking

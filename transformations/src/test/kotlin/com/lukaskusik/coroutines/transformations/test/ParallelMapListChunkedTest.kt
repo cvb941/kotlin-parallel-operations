@@ -1,7 +1,6 @@
 package com.lukaskusik.coroutines.transformations.test
 
-import com.lukaskusik.coroutines.transformations.mapParallel
-import com.lukaskusik.coroutines.transformations.mapParallelChunked
+import com.lukaskusik.coroutines.transformations.map.mapParallelChunked
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test

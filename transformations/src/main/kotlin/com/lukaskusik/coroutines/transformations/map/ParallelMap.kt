@@ -1,4 +1,4 @@
-package com.lukaskusik.coroutines.transformations
+package com.lukaskusik.coroutines.transformations.map
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope

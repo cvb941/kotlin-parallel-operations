@@ -1,7 +1,6 @@
 package com.lukaskusik.coroutines.transformations.test
 
-import com.lukaskusik.coroutines.transformations.mapInPlace
-import com.lukaskusik.coroutines.transformations.mapInPlaceParallel
+import com.lukaskusik.coroutines.transformations.mapinplace.mapInPlaceParallel
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test

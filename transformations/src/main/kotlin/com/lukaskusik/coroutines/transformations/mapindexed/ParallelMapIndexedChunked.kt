@@ -1,4 +1,4 @@
-package com.lukaskusik.coroutines.transformations
+package com.lukaskusik.coroutines.transformations.mapindexed
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -9,13 +9,13 @@ import kotlinx.coroutines.coroutineScope
  *
  *  @param chunkSize Size of each sub-collection that will be reduced in each coroutine.
  */
-suspend fun <T, R> Iterable<T>.mapParallelChunked(
+suspend fun <T, R> Iterable<T>.mapIndexedParallelChunked(
     chunkSize: Int,
-    transform: (T) -> R
+    transform: (index: Int, T) -> R
 ): List<R> = coroutineScope {
-    chunked(chunkSize).map { subChunk ->
+    withIndex().chunked(chunkSize).map { subChunk ->
         async {
-            subChunk.map(transform)
+            subChunk.map { transform(it.index, it.value) }
         }
     }.flatMap {
         it.await()
@@ -32,10 +32,10 @@ suspend fun <T, R> Iterable<T>.mapParallelChunked(
  *  @param chunksCount How many chunks should the collection be split into. Defaults to the number of available processors.
  *
  */
-suspend fun <T, E> Collection<T>.mapParallelChunked(
+suspend fun <T, E> Collection<T>.mapIndexedParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
-    transform: (T) -> E
+    transform: (index: Int, T) -> E
 ): List<E> {
     val chunkSize = Math.ceil(size / chunksCount.toDouble()).toInt()
-    return asIterable().mapParallelChunked(chunkSize, transform)
+    return asIterable().mapIndexedParallelChunked(chunkSize, transform)
 }
