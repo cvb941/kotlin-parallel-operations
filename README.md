@@ -1,4 +1,7 @@
-# Parallel coroutine operations on Kotlin collections [![](https://jitpack.io/v/cvb941/kotlin-parallel-collection-operations.svg)](https://jitpack.io/#cvb941/kotlin-parallel-collection-operations)
+# Parallel coroutine operations on Kotlin collections
+[![](https://jitpack.io/v/cvb941/kotlin-parallel-collection-operations.svg)](https://jitpack.io/#cvb941/kotlin-parallel-collection-operations)
+[![](https://jitci.com/gh/cvb941/kotlin-parallel-operations/svg)](https://jitci.com/gh/cvb941/kotlin-parallel-operations)
+
 Provides parallelized *map*, *reduce*, etc. operations using coroutines in Kotlin.
 
 The parallel *map* implementation is called *.mapParallel()*. It is implemented like this.
