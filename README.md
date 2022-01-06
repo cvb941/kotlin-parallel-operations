@@ -1,8 +1,8 @@
-# Parallel coroutine operations on Kotlin collections
+# Kotlin - Parallel Map
 [![](https://jitpack.io/v/cvb941/kotlin-parallel-collection-operations.svg)](https://jitpack.io/#cvb941/kotlin-parallel-collection-operations)
 [![](https://jitci.com/gh/cvb941/kotlin-parallel-operations/svg)](https://jitci.com/gh/cvb941/kotlin-parallel-operations)
 
-Provides parallelized *map*, *reduce*, etc. operations using coroutines in Kotlin.
+Parallel *map*, *reduce*, and various indexed and in-place variations for Kotlin using coroutines.
 
 The parallel *map* implementation is called *.mapParallel()*. It is implemented like this.
 ```kotlin
@@ -50,7 +50,7 @@ allprojects {
 After that, include this line in your module build.gradle.
 ```gradle
 dependencies {
-    implementation 'com.github.cvb941:kotlin-parallel-operations:1.3'
+    implementation 'com.github.cvb941:kotlin-parallel-operations:1.4'
 }
 ```
 
