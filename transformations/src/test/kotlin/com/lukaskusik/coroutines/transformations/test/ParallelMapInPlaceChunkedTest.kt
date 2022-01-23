@@ -4,6 +4,7 @@ import com.lukaskusik.coroutines.transformations.mapinplace.mapInPlaceParallelCh
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
+import kotlin.test.assertFails
 
 class ParallelMapInPlaceChunkedTest {
 
@@ -98,6 +99,18 @@ class ParallelMapInPlaceChunkedTest {
     fun parallelInPlaceMapArrayOfBooleansChunked4() {
         val array = booleanArrayOf(true, false, true)
         val resultArray = booleanArrayOf(false, true, false)
+
+        runBlocking {
+            array.mapInPlaceParallelChunked(4) { !it }
+        }
+
+        Assert.assertArrayEquals(array, resultArray)
+    }
+
+    @Test
+    fun parallelInPlaceEmptyChunked() {
+        val array = booleanArrayOf()
+        val resultArray = booleanArrayOf()
 
         runBlocking {
             array.mapInPlaceParallelChunked(4) { !it }

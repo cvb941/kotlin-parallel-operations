@@ -2,6 +2,7 @@ package com.lukaskusik.coroutines.transformations.reduce
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlin.math.ceil
 
 
 /**
@@ -34,6 +35,6 @@ suspend fun <T> Collection<T>.reduceParallel(
 ): T {
     if (chunksCount <= 0) throw IllegalArgumentException("chunksCount must be a positive integer")
 
-    val chunkSize = Math.ceil(size / chunksCount.toDouble()).toInt()
+    val chunkSize = ceil(size / chunksCount.toDouble()).toInt()
     return asIterable().reduceParallel(chunkSize, operation)
 }

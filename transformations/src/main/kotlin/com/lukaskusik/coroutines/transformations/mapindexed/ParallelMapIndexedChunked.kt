@@ -36,6 +36,9 @@ suspend fun <T, E> Collection<T>.mapIndexedParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
     transform: (index: Int, T) -> E
 ): List<E> {
+    assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
+    if (isEmpty()) return emptyList()
+
     val chunkSize = Math.ceil(size / chunksCount.toDouble()).toInt()
     return asIterable().mapIndexedParallelChunked(chunkSize, transform)
 }

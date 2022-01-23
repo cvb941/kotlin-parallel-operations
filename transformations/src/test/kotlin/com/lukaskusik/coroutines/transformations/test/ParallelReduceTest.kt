@@ -28,8 +28,7 @@ class ParallelReduceTest {
         val sequentialResult = listSequential.reduce(operation)
         var parallelResult: Int? = null
         runBlocking {
-            parallelResult =
-                listParallel.reduceParallel(chunks, operation)
+            parallelResult = listParallel.reduceParallel(chunks, operation)
         }
 
         Assert.assertEquals(sequentialResult, parallelResult)

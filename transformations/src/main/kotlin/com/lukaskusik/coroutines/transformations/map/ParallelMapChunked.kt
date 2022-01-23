@@ -2,6 +2,7 @@ package com.lukaskusik.coroutines.transformations.map
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlin.math.ceil
 
 /**
  *  Performs map transformation on the iterable using coroutines.
@@ -36,6 +37,9 @@ suspend fun <T, E> Collection<T>.mapParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
     transform: (T) -> E
 ): List<E> {
-    val chunkSize = Math.ceil(size / chunksCount.toDouble()).toInt()
+    assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
+    if (isEmpty()) return emptyList()
+
+    val chunkSize = ceil(size / chunksCount.toDouble()).toInt()
     return asIterable().mapParallelChunked(chunkSize, transform)
 }

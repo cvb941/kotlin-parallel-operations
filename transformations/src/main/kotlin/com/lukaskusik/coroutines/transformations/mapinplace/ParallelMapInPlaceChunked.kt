@@ -2,6 +2,7 @@ package com.lukaskusik.coroutines.transformations.mapinplace
 
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import kotlin.math.ceil
 
 
 /**
@@ -11,10 +12,13 @@ suspend fun <T> Array<T>.mapInPlaceParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
     transform: (T) -> T
 ): Array<T> = coroutineScope {
-    val chunkSize = Math.ceil(size / chunksCount.toDouble()).toInt()
+    assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
+    if (isEmpty()) return@coroutineScope this@mapInPlaceParallelChunked
+
+    val chunkSize = ceil(size / chunksCount.toDouble()).toInt()
     for (i in indices step chunkSize) {
         launch {
-            for (j in i until Math.min(i + chunkSize, size))
+            for (j in i until (i + chunkSize).coerceAtMost(size))
                 this@mapInPlaceParallelChunked[j] = transform(this@mapInPlaceParallelChunked[j])
         }
     }
@@ -29,10 +33,13 @@ suspend fun ByteArray.mapInPlaceParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
     transform: (Byte) -> Byte
 ): ByteArray = coroutineScope {
-    val chunkSize = Math.ceil(size / chunksCount.toDouble()).toInt()
+    assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
+    if (isEmpty()) return@coroutineScope this@mapInPlaceParallelChunked
+
+    val chunkSize = ceil(size / chunksCount.toDouble()).toInt()
     for (i in indices step chunkSize) {
         launch {
-            for (j in i until Math.min(i + chunkSize, size))
+            for (j in i until (i + chunkSize).coerceAtMost(size))
                 this@mapInPlaceParallelChunked[j] = transform(this@mapInPlaceParallelChunked[j])
         }
     }
@@ -47,10 +54,13 @@ suspend fun ShortArray.mapInPlaceParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
     transform: (Short) -> Short
 ): ShortArray = coroutineScope {
-    val chunkSize = Math.ceil(size / chunksCount.toDouble()).toInt()
+    assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
+    if (isEmpty()) return@coroutineScope this@mapInPlaceParallelChunked
+
+    val chunkSize = ceil(size / chunksCount.toDouble()).toInt()
     for (i in indices step chunkSize) {
         launch {
-            for (j in i until Math.min(i + chunkSize, size))
+            for (j in i until (i + chunkSize).coerceAtMost(size))
                 this@mapInPlaceParallelChunked[j] = transform(this@mapInPlaceParallelChunked[j])
         }
     }
@@ -64,10 +74,13 @@ suspend fun IntArray.mapInPlaceParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
     transform: (Int) -> Int
 ): IntArray = coroutineScope {
-    val chunkSize = Math.ceil(size / chunksCount.toDouble()).toInt()
+    assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
+    if (isEmpty()) return@coroutineScope this@mapInPlaceParallelChunked
+
+    val chunkSize = ceil(size / chunksCount.toDouble()).toInt()
     for (i in indices step chunkSize) {
         launch {
-            for (j in i until Math.min(i + chunkSize, size))
+            for (j in i until (i + chunkSize).coerceAtMost(size))
                 this@mapInPlaceParallelChunked[j] = transform(this@mapInPlaceParallelChunked[j])
         }
     }
@@ -81,10 +94,13 @@ suspend fun LongArray.mapInPlaceParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
     transform: (Long) -> Long
 ): LongArray = coroutineScope {
-    val chunkSize = Math.ceil(size / chunksCount.toDouble()).toInt()
+    assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
+    if (isEmpty()) return@coroutineScope this@mapInPlaceParallelChunked
+
+    val chunkSize = ceil(size / chunksCount.toDouble()).toInt()
     for (i in indices step chunkSize) {
         launch {
-            for (j in i until Math.min(i + chunkSize, size))
+            for (j in i until (i + chunkSize).coerceAtMost(size))
                 this@mapInPlaceParallelChunked[j] = transform(this@mapInPlaceParallelChunked[j])
         }
     }
@@ -98,10 +114,13 @@ suspend fun FloatArray.mapInPlaceParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
     transform: (Float) -> Float
 ): FloatArray = coroutineScope {
-    val chunkSize = Math.ceil(size / chunksCount.toDouble()).toInt()
+    assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
+    if (isEmpty()) return@coroutineScope this@mapInPlaceParallelChunked
+
+    val chunkSize = ceil(size / chunksCount.toDouble()).toInt()
     for (i in indices step chunkSize) {
         launch {
-            for (j in i until Math.min(i + chunkSize, size))
+            for (j in i until (i + chunkSize).coerceAtMost(size))
                 this@mapInPlaceParallelChunked[j] = transform(this@mapInPlaceParallelChunked[j])
         }
     }
@@ -115,10 +134,13 @@ suspend fun DoubleArray.mapInPlaceParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
     transform: (Double) -> Double
 ): DoubleArray = coroutineScope {
-    val chunkSize = Math.ceil(size / chunksCount.toDouble()).toInt()
+    assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
+    if (isEmpty()) return@coroutineScope this@mapInPlaceParallelChunked
+
+    val chunkSize = ceil(size / chunksCount.toDouble()).toInt()
     for (i in indices step chunkSize) {
         launch {
-            for (j in i until Math.min(i + chunkSize, size))
+            for (j in i until (i + chunkSize).coerceAtMost(size))
                 this@mapInPlaceParallelChunked[j] = transform(this@mapInPlaceParallelChunked[j])
         }
     }
@@ -132,10 +154,13 @@ suspend fun BooleanArray.mapInPlaceParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
     transform: (Boolean) -> Boolean
 ): BooleanArray = coroutineScope {
-    val chunkSize = Math.ceil(size / chunksCount.toDouble()).toInt()
+    assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
+    if (isEmpty()) return@coroutineScope this@mapInPlaceParallelChunked
+
+    val chunkSize = ceil(size / chunksCount.toDouble()).toInt()
     for (i in indices step chunkSize) {
         launch {
-            for (j in i until Math.min(i + chunkSize, size))
+            for (j in i until (i + chunkSize).coerceAtMost(size))
                 this@mapInPlaceParallelChunked[j] = transform(this@mapInPlaceParallelChunked[j])
         }
     }
