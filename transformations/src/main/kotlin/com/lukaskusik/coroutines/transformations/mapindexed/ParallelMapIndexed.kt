@@ -6,8 +6,8 @@ import kotlinx.coroutines.coroutineScope
 /**
  *  Performs map transformation on the iterable using coroutines.
  */
-suspend fun <T, R> Iterable<T>.mapIndexedParallel(
-    transform: (index: Int, T) -> R
+suspend inline fun <T, R> Iterable<T>.mapIndexedParallel(
+    crossinline transform: suspend (index: Int, T) -> R
 ): List<R> = coroutineScope {
     mapIndexed { i, elem -> async { transform(i, elem) } }.map { it.await() }
 }
@@ -16,8 +16,8 @@ suspend fun <T, R> Iterable<T>.mapIndexedParallel(
 /**
  *  Performs map transformation on the array using coroutines.
  */
-suspend fun <T, R> Array<out T>.mapIndexedParallel(
-    transform: (index: Int, T) -> R
+suspend inline fun <T, R> Array<out T>.mapIndexedParallel(
+    crossinline transform: suspend (index: Int, T) -> R
 ): List<R> = coroutineScope {
     mapIndexed { i, elem -> async { transform(i, elem) } }.map { it.await() }
 }
@@ -25,8 +25,8 @@ suspend fun <T, R> Array<out T>.mapIndexedParallel(
 /**
  *  Performs map transformation on the array using coroutines.
  */
-suspend fun <R> ByteArray.mapIndexedParallel(
-    transform: (index: Int, Byte) -> R
+suspend inline fun <R> ByteArray.mapIndexedParallel(
+    crossinline transform: suspend (index: Int, Byte) -> R
 ): List<R> = coroutineScope {
     mapIndexed { i, elem -> async { transform(i, elem) } }.map { it.await() }
 }
@@ -34,8 +34,8 @@ suspend fun <R> ByteArray.mapIndexedParallel(
 /**
  *  Performs map transformation on the array using coroutines.
  */
-suspend fun <R> ShortArray.mapIndexedParallel(
-    transform: (index: Int, Short) -> R
+suspend inline fun <R> ShortArray.mapIndexedParallel(
+    crossinline transform: suspend (index: Int, Short) -> R
 ): List<R> = coroutineScope {
     mapIndexed { i, elem -> async { transform(i, elem) } }.map { it.await() }
 }
@@ -43,8 +43,8 @@ suspend fun <R> ShortArray.mapIndexedParallel(
 /**
  *  Performs map transformation on the array using coroutines.
  */
-suspend fun <R> IntArray.mapIndexedParallel(
-    transform: (index: Int, Int) -> R
+suspend inline fun <R> IntArray.mapIndexedParallel(
+    crossinline transform: suspend (index: Int, Int) -> R
 ): List<R> = coroutineScope {
     mapIndexed { i, elem -> async { transform(i, elem) } }.map { it.await() }
 }
@@ -52,8 +52,8 @@ suspend fun <R> IntArray.mapIndexedParallel(
 /**
  *  Performs map transformation on the array using coroutines.
  */
-suspend fun <R> LongArray.mapIndexedParallel(
-    transform: (index: Int, Long) -> R
+suspend inline fun <R> LongArray.mapIndexedParallel(
+    crossinline transform: suspend (index: Int, Long) -> R
 ): List<R> = coroutineScope {
     mapIndexed { i, elem -> async { transform(i, elem) } }.map { it.await() }
 }
@@ -61,8 +61,8 @@ suspend fun <R> LongArray.mapIndexedParallel(
 /**
  *  Performs map transformation on the array using coroutines.
  */
-suspend fun <R> FloatArray.mapIndexedParallel(
-    transform: (index: Int, Float) -> R
+suspend inline fun <R> FloatArray.mapIndexedParallel(
+    crossinline transform: suspend (index: Int, Float) -> R
 ): List<R> = coroutineScope {
     mapIndexed { i, elem -> async { transform(i, elem) } }.map { it.await() }
 }
@@ -70,8 +70,8 @@ suspend fun <R> FloatArray.mapIndexedParallel(
 /**
  *  Performs map transformation on the array using coroutines.
  */
-suspend fun <R> DoubleArray.mapIndexedParallel(
-    transform: (index: Int, Double) -> R
+suspend inline fun <R> DoubleArray.mapIndexedParallel(
+    crossinline transform: suspend (index: Int, Double) -> R
 ): List<R> = coroutineScope {
     mapIndexed { i, elem -> async { transform(i, elem) } }.map { it.await() }
 }
@@ -79,8 +79,8 @@ suspend fun <R> DoubleArray.mapIndexedParallel(
 /**
  *  Performs map transformation on the array using coroutines.
  */
-suspend fun <R> BooleanArray.mapIndexedParallel(
-    transform: (index: Int, Boolean) -> R
+suspend inline fun <R> BooleanArray.mapIndexedParallel(
+    crossinline transform: suspend (index: Int, Boolean) -> R
 ): List<R> = coroutineScope {
     mapIndexed { i, elem -> async { transform(i, elem) } }.map { it.await() }
 }

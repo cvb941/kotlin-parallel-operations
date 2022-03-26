@@ -1,10 +1,12 @@
 package com.lukaskusik.coroutines.transformations.test
 
 import com.lukaskusik.coroutines.transformations.map.mapParallel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
 import kotlin.random.Random
+import kotlin.test.assertEquals
 
 class ParallelMapListTest {
 
@@ -31,5 +33,23 @@ class ParallelMapListTest {
 
 
         Assert.assertEquals(listSequential, listParallel)
+    }
+
+    @Test
+    fun parallelMapSuspendingTransform() = runBlocking {
+        suspend fun suspending(number: Number): Number {
+            delay(10)
+            return number
+        }
+
+        val one = listOf(1, 2, 3).map {
+            suspending(it)
+        }
+
+        val two = listOf(1, 2, 3).mapParallel {
+            suspending(it)
+        }
+
+        assertEquals(one, two)
     }
 }

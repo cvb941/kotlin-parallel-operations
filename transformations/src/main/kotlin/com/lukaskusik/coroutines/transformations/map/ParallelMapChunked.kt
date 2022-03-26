@@ -10,13 +10,13 @@ import kotlin.math.ceil
  *
  *  @param chunkSize Size of each sub-collection that will be reduced in each coroutine.
  */
-suspend fun <T, R> Iterable<T>.mapParallelChunked(
+suspend inline fun <T, R> Iterable<T>.mapParallelChunked(
     chunkSize: Int,
-    transform: (T) -> R
+    crossinline transform: suspend (T) -> R
 ): List<R> = coroutineScope {
     chunked(chunkSize).map { subChunk ->
         async {
-            subChunk.map(transform)
+            subChunk.map { transform(it) }
         }
     }.flatMap {
         it.await()
@@ -33,9 +33,9 @@ suspend fun <T, R> Iterable<T>.mapParallelChunked(
  *  @param chunksCount How many chunks should the collection be split into. Defaults to the number of available processors.
  *
  */
-suspend fun <T, E> Collection<T>.mapParallelChunked(
+suspend inline fun <T, E> Collection<T>.mapParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
-    transform: (T) -> E
+    crossinline transform: suspend (T) -> E
 ): List<E> {
     assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
     if (isEmpty()) return emptyList()

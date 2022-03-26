@@ -1,7 +1,6 @@
 package com.lukaskusik.coroutines.transformations.test
 
 import com.lukaskusik.coroutines.transformations.map.mapParallelChunked
-import com.sun.org.apache.xpath.internal.operations.Bool
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
@@ -54,7 +53,6 @@ class ParallelMapListChunkedTest {
         var listSequential = listOf(1, 3, 3, 4, 5)
         var listParallel = listSequential.toList()
 
-        listSequential = listSequential.map { it * 2 }
         runBlocking {
             assertFails {
                 listParallel = listParallel.mapParallelChunked(0) { it * 2 }

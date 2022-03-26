@@ -9,9 +9,9 @@ import kotlinx.coroutines.coroutineScope
  *
  *  @param chunkSize Size of each sub-collection that will be reduced in each coroutine.
  */
-suspend fun <T, R> Iterable<T>.mapIndexedParallelChunked(
+suspend inline fun <T, R> Iterable<T>.mapIndexedParallelChunked(
     chunkSize: Int,
-    transform: (index: Int, T) -> R
+    crossinline transform: suspend (index: Int, T) -> R
 ): List<R> = coroutineScope {
     withIndex().chunked(chunkSize).map { subChunk ->
         async {
@@ -32,9 +32,9 @@ suspend fun <T, R> Iterable<T>.mapIndexedParallelChunked(
  *  @param chunksCount How many chunks should the collection be split into. Defaults to the number of available processors.
  *
  */
-suspend fun <T, E> Collection<T>.mapIndexedParallelChunked(
+suspend inline fun <T, E> Collection<T>.mapIndexedParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
-    transform: (index: Int, T) -> E
+    crossinline transform: suspend (index: Int, T) -> E
 ): List<E> {
     assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
     if (isEmpty()) return emptyList()

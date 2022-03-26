@@ -8,9 +8,9 @@ import kotlin.math.ceil
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun <T> Array<T>.mapInPlaceIndexedParallelChunked(
+suspend inline fun <T> Array<T>.mapInPlaceIndexedParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
-    transform: (index: Int, T) -> T
+    crossinline transform: suspend (index: Int, T) -> T
 ): Array<T> = coroutineScope {
     assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
     if (isEmpty()) return@coroutineScope this@mapInPlaceIndexedParallelChunked
@@ -29,9 +29,9 @@ suspend fun <T> Array<T>.mapInPlaceIndexedParallelChunked(
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun ByteArray.mapInPlaceIndexedParallelChunked(
+suspend inline fun ByteArray.mapInPlaceIndexedParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
-    transform: (index: Int, Byte) -> Byte
+    crossinline transform: suspend (index: Int, Byte) -> Byte
 ): ByteArray = coroutineScope {
     assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
     if (isEmpty()) return@coroutineScope this@mapInPlaceIndexedParallelChunked
@@ -50,9 +50,9 @@ suspend fun ByteArray.mapInPlaceIndexedParallelChunked(
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun ShortArray.mapInPlaceIndexedParallelChunked(
+suspend inline fun ShortArray.mapInPlaceIndexedParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
-    transform: (index: Int, Short) -> Short
+    crossinline transform: suspend (index: Int, Short) -> Short
 ): ShortArray = coroutineScope {
     assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
     if (isEmpty()) return@coroutineScope this@mapInPlaceIndexedParallelChunked
@@ -70,9 +70,9 @@ suspend fun ShortArray.mapInPlaceIndexedParallelChunked(
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun IntArray.mapInPlaceIndexedParallelChunked(
+suspend inline fun IntArray.mapInPlaceIndexedParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
-    transform: (index: Int, Int) -> Int
+    crossinline transform: suspend (index: Int, Int) -> Int
 ): IntArray = coroutineScope {
     assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
     if (isEmpty()) return@coroutineScope this@mapInPlaceIndexedParallelChunked
@@ -90,9 +90,9 @@ suspend fun IntArray.mapInPlaceIndexedParallelChunked(
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun LongArray.mapInPlaceIndexedParallelChunked(
+suspend inline fun LongArray.mapInPlaceIndexedParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
-    transform: (index: Int, Long) -> Long
+    crossinline transform: suspend (index: Int, Long) -> Long
 ): LongArray = coroutineScope {
     assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
     if (isEmpty()) return@coroutineScope this@mapInPlaceIndexedParallelChunked
@@ -110,9 +110,9 @@ suspend fun LongArray.mapInPlaceIndexedParallelChunked(
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun FloatArray.mapInPlaceIndexedParallelChunked(
+suspend inline fun FloatArray.mapInPlaceIndexedParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
-    transform: (index: Int, Float) -> Float
+    crossinline transform: suspend (index: Int, Float) -> Float
 ): FloatArray = coroutineScope {
     assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
     if (isEmpty()) return@coroutineScope this@mapInPlaceIndexedParallelChunked
@@ -130,9 +130,9 @@ suspend fun FloatArray.mapInPlaceIndexedParallelChunked(
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun DoubleArray.mapInPlaceIndexedParallelChunked(
+suspend inline fun DoubleArray.mapInPlaceIndexedParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
-    transform: (index: Int, Double) -> Double
+    crossinline transform: suspend (index: Int, Double) -> Double
 ): DoubleArray = coroutineScope {
     assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
     if (isEmpty()) return@coroutineScope this@mapInPlaceIndexedParallelChunked
@@ -150,9 +150,9 @@ suspend fun DoubleArray.mapInPlaceIndexedParallelChunked(
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun BooleanArray.mapInPlaceIndexedParallelChunked(
+suspend inline fun BooleanArray.mapInPlaceIndexedParallelChunked(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
-    transform: (index: Int, Boolean) -> Boolean
+    crossinline transform: suspend (index: Int, Boolean) -> Boolean
 ): BooleanArray = coroutineScope {
     assert(chunksCount > 0) { "Parameter chunksCount must be greater than 0" }
     if (isEmpty()) return@coroutineScope this@mapInPlaceIndexedParallelChunked

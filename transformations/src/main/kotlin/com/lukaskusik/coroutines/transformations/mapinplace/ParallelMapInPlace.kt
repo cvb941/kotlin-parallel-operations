@@ -7,8 +7,8 @@ import kotlinx.coroutines.launch
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun <T> Array<T>.mapInPlaceParallel(
-    transform: (T) -> T
+suspend inline fun <T> Array<T>.mapInPlaceParallel(
+    crossinline transform: suspend (T) -> T
 ): Array<T> = coroutineScope {
     for (i in indices) {
         launch { this@mapInPlaceParallel[i] = transform(this@mapInPlaceParallel[i]) }
@@ -20,8 +20,8 @@ suspend fun <T> Array<T>.mapInPlaceParallel(
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun ByteArray.mapInPlaceParallel(
-    transform: (Byte) -> Byte
+suspend inline fun ByteArray.mapInPlaceParallel(
+    crossinline transform: suspend (Byte) -> Byte
 ): ByteArray = coroutineScope {
     for (i in indices) {
         launch { this@mapInPlaceParallel[i] = transform(this@mapInPlaceParallel[i]) }
@@ -33,8 +33,8 @@ suspend fun ByteArray.mapInPlaceParallel(
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun ShortArray.mapInPlaceParallel(
-    transform: (Short) -> Short
+suspend inline fun ShortArray.mapInPlaceParallel(
+    crossinline transform: suspend (Short) -> Short
 ): ShortArray = coroutineScope {
     for (i in indices) {
         launch { this@mapInPlaceParallel[i] = transform(this@mapInPlaceParallel[i]) }
@@ -45,8 +45,8 @@ suspend fun ShortArray.mapInPlaceParallel(
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun IntArray.mapInPlaceParallel(
-    transform: (Int) -> Int
+suspend inline fun IntArray.mapInPlaceParallel(
+    crossinline transform: suspend (Int) -> Int
 ): IntArray = coroutineScope {
     for (i in indices) {
         launch { this@mapInPlaceParallel[i] = transform(this@mapInPlaceParallel[i]) }
@@ -57,8 +57,8 @@ suspend fun IntArray.mapInPlaceParallel(
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun LongArray.mapInPlaceParallel(
-    transform: (Long) -> Long
+suspend inline fun LongArray.mapInPlaceParallel(
+    crossinline transform: suspend (Long) -> Long
 ): LongArray = coroutineScope {
     for (i in indices) {
         launch { this@mapInPlaceParallel[i] = transform(this@mapInPlaceParallel[i]) }
@@ -69,8 +69,8 @@ suspend fun LongArray.mapInPlaceParallel(
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun FloatArray.mapInPlaceParallel(
-    transform: (Float) -> Float
+suspend inline fun FloatArray.mapInPlaceParallel(
+    crossinline transform: suspend (Float) -> Float
 ): FloatArray = coroutineScope {
     for (i in indices) {
         launch { this@mapInPlaceParallel[i] = transform(this@mapInPlaceParallel[i]) }
@@ -81,8 +81,8 @@ suspend fun FloatArray.mapInPlaceParallel(
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun DoubleArray.mapInPlaceParallel(
-    transform: (Double) -> Double
+suspend inline fun DoubleArray.mapInPlaceParallel(
+    crossinline transform: suspend (Double) -> Double
 ): DoubleArray = coroutineScope {
     for (i in indices) {
         launch { this@mapInPlaceParallel[i] = transform(this@mapInPlaceParallel[i]) }
@@ -93,8 +93,8 @@ suspend fun DoubleArray.mapInPlaceParallel(
 /**
  *  Performs in place map transformation on the array using coroutines.
  */
-suspend fun BooleanArray.mapInPlaceParallel(
-    transform: (Boolean) -> Boolean
+suspend inline fun BooleanArray.mapInPlaceParallel(
+    crossinline transform: suspend (Boolean) -> Boolean
 ): BooleanArray = coroutineScope {
     for (i in indices) {
         launch { this@mapInPlaceParallel[i] = transform(this@mapInPlaceParallel[i]) }

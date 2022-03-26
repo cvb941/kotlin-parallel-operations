@@ -11,15 +11,15 @@ import kotlin.math.ceil
  *
  *  @param chunkSize Size of each sub-collection that will be reduced in each coroutine.
  */
-suspend fun <T> Iterable<T>.reduceParallel(
+suspend inline fun <T> Iterable<T>.reduceParallel(
     chunkSize: Int,
-    operation: (T, T) -> T
+    crossinline operation: suspend (T, T) -> T
 ): T = coroutineScope {
     chunked(chunkSize).map { subChunk ->
         async {
-            subChunk.reduce(operation)
+            subChunk.reduce { acc, t -> operation(acc, t) }
         }
-    }.map { it.await() }.reduce(operation)
+    }.map { it.await() }.reduce { acc, t -> operation(acc, t) }
 }
 
 /**
@@ -29,9 +29,9 @@ suspend fun <T> Iterable<T>.reduceParallel(
  *
  *  @param chunksCount How many chunks should the collection be split into. Defaults to the number of available processors.
  */
-suspend fun <T> Collection<T>.reduceParallel(
+suspend inline fun <T> Collection<T>.reduceParallel(
     chunksCount: Int = Runtime.getRuntime().availableProcessors(),
-    operation: (T, T) -> T
+    crossinline operation: (T, T) -> T
 ): T {
     if (chunksCount <= 0) throw IllegalArgumentException("chunksCount must be a positive integer")
 
