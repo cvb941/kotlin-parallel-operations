@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'com.lukaskusik.library'
+group = 'net.kusik.library'
 
 repositories {
     mavenCentral()
