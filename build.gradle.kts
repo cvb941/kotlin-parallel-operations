@@ -1,9 +1,10 @@
 plugins {
-    kotlin("multiplatform") version "1.8.0"
+    kotlin("multiplatform") version "1.8.21"
+    id("org.jetbrains.kotlinx.benchmark") version "0.4.4"
 }
 
 group = "net.kusik"
-version = "1.0-SNAPSHOT"
+version = "1.6.0"
 
 repositories {
     mavenCentral()
@@ -12,19 +13,10 @@ repositories {
 kotlin {
     jvm {
         jvmToolchain(19)
-        withJava()
-        testRuns["test"].executionTask.configure {
-            useJUnitPlatform()
-        }
     }
     js(IR) {
-        browser {
-            commonWebpackConfig {
-                cssSupport {
-                    enabled.set(true)
-                }
-            }
-        }
+        nodejs()
+        browser()
     }
 
     val hostOs = System.getProperty("os.name")
@@ -41,7 +33,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // Coroutines
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
             }
         }
         val commonTest by getting {
@@ -49,7 +41,7 @@ kotlin {
                 implementation(kotlin("test"))
 
                 // Coroutines
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
             }
         }
         val jvmMain by getting
@@ -63,5 +55,28 @@ kotlin {
         val jsTest by getting
         val nativeMain by getting
         val nativeTest by getting
+
+        val benchmarks by creating {
+            dependsOn(commonMain)
+
+            dependencies {
+                // Coroutines
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+
+                // Benchmark
+                implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.4")
+            }
+        }
+    }
+}
+
+benchmark {
+    targets {
+        register("benchmark")
+    }
+    configurations {
+        getByName("main") {
+
+        }
     }
 }
