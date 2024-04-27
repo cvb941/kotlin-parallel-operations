@@ -1,13 +1,14 @@
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     kotlin("multiplatform") version "1.9.23"
     id("org.jetbrains.kotlinx.benchmark") version "0.4.10"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.9.23"
-    id("maven-publish")
+    id("com.vanniktech.maven.publish") version "0.28.0"
 }
 
-group = "net.kusik"
+group = "io.github.cvb941"
 version = "2.0.0"
 
 repositories {
@@ -90,15 +91,34 @@ allOpen {
     annotation("org.openjdk.jmh.annotations.State")
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/cvb941/kotlin-parallel-operations")
-            credentials {
-                username = project.findProperty("gpr.user")?.toString() ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.key")?.toString() ?: System.getenv("GITHUB_TOKEN")
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
+
+    signAllPublications()
+
+    pom {
+        name.set("Parallel Operations")
+        description.set("Parallel map, reduce and more using coroutines in Kotlin.")
+        inceptionYear.set("2019")
+        url.set("https://github.com/cvb941/kotlin-parallel-operations/")
+        licenses {
+            license {
+                name.set("MIT License")
+                url.set("https://opensource.org/licenses/MIT")
+                distribution.set("repo")
             }
+        }
+        developers {
+            developer {
+                id.set("cvb941")
+                name.set("Lukas Kusik")
+                url.set("https://github.com/cvb941/")
+            }
+        }
+        scm {
+            url.set("https://github.com/cvb941/kotlin-parallel-operations/")
+            connection.set("scm:git:git://github.com/cvb941/kotlin-parallel-operations.git")
+            developerConnection.set("scm:git:ssh://git@github.com/cvb941/kotlin-parallel-operations.git")
         }
     }
 }
