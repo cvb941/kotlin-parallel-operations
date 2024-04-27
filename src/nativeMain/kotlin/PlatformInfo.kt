@@ -1,9 +1,14 @@
 package net.kusik.util
 
+import kotlin.experimental.ExperimentalNativeApi
+import kotlin.system.getTimeMillis
+
 actual object PlatformInfo {
-    @OptIn(ExperimentalStdlibApi::class)
+    @OptIn(ExperimentalNativeApi::class)
     actual fun availableProcessors(): Int {
         return Platform.getAvailableProcessors()
     }
+
+    actual fun getSystemTimeInMillis(): Long = getTimeMillis()
 
 }

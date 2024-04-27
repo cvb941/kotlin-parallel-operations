@@ -22,7 +22,7 @@ kotlin {
         }
 
         compilations.create("benchmark") {
-            associateWith(compilations.getByName("test"))
+            associateWith(compilations.getByName("main"))
         }
     }
     js {
@@ -45,9 +45,6 @@ kotlin {
     macosArm64()
     iosX64()
     iosArm64()
-    watchosX64()
-    watchosArm32()
-    watchosArm64()
 
     applyDefaultHierarchyTemplate()
 
@@ -68,10 +65,16 @@ kotlin {
         }
         val jvmBenchmark by getting {
             dependencies {
+                implementation(kotlin("test"))
+
+                // Coroutines
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+
                 // Kotlinx Benchmark
                 implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.10")
             }
         }
+        jvmBenchmark.dependsOn(commonTest.get())
     }
 }
 

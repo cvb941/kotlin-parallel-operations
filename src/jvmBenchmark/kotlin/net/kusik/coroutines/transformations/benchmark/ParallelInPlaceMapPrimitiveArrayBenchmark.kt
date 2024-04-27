@@ -1,15 +1,17 @@
 package net.kusik.coroutines.transformations.benchmark
 
-import com.carrotsearch.junitbenchmarks.AbstractBenchmark
+import kotlinx.benchmark.Benchmark
+import kotlinx.benchmark.Scope
+import kotlinx.benchmark.State
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.runTest
 import net.kusik.coroutines.transformations.mapinplace.mapInPlace
 import net.kusik.coroutines.transformations.mapinplace.mapInPlaceParallel
 import net.kusik.coroutines.transformations.mapinplace.mapInPlaceParallelChunked
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Test
 import kotlin.random.Random
 
-class ParallelInPlaceMapPrimitiveArrayBenchmark : AbstractBenchmark() {
+@State(Scope.Benchmark)
+class ParallelInPlaceMapPrimitiveArrayBenchmark {
 
     companion object {
         const val ARRAY_SIZE = 100
@@ -18,40 +20,40 @@ class ParallelInPlaceMapPrimitiveArrayBenchmark : AbstractBenchmark() {
     private val random = Random(468)
     private val array = IntArray(ARRAY_SIZE) { random.nextInt() }
     private val operation = { it: Int ->
-//        Thread.sleep(1)
+        sleep(1)
         it + it
     }
 
 
-    @Test
+    @Benchmark
     fun sequential() {
         array.mapInPlace(operation)
     }
 
-    @Test
+    @Benchmark
     fun coroutineOnMain() {
-        runBlocking {
+        runTest {
             array.mapInPlaceParallel(operation)
         }
     }
 
-    @Test
+    @Benchmark
     fun coroutineOnThreadPool() {
-        runBlocking(Dispatchers.Default) {
+        runTest(Dispatchers.Default) {
             array.mapInPlaceParallel(operation)
         }
     }
 
-    @Test
+    @Benchmark
     fun coroutineOnThreadPoolChunked4() {
-        runBlocking(Dispatchers.Default) {
+        runTest(Dispatchers.Default) {
             array.mapInPlaceParallelChunked(4, operation)
         }
     }
 
-    @Test
+    @Benchmark
     fun coroutineOnThreadPoolChunked8() {
-        runBlocking(Dispatchers.Default) {
+        runTest(Dispatchers.Default) {
             array.mapInPlaceParallelChunked(8, operation)
         }
     }

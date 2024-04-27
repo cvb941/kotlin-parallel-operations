@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="benchmark-wasm-js-2.0.0">
+    <output-path>$PROJECT_DIR$/benchmark/build/libs</output-path>
+    <root id="archive" name="benchmark-wasm-js-2.0.0.jar">
+      <element id="module-output" name="net.kusik.kotlin-parallel-operations.benchmark.wasmJsMain" />
+    </root>
+  </artifact>
+</component>

@@ -5,4 +5,6 @@ actual object PlatformInfo {
         return Runtime.getRuntime().availableProcessors()
     }
 
+    actual fun getSystemTimeInMillis(): Long = System.currentTimeMillis()
+
 }

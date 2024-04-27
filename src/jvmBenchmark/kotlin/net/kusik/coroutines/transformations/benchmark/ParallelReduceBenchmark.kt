@@ -1,13 +1,15 @@
 package net.kusik.coroutines.transformations.benchmark
 
-import com.carrotsearch.junitbenchmarks.AbstractBenchmark
+import kotlinx.benchmark.Benchmark
+import kotlinx.benchmark.Scope
+import kotlinx.benchmark.State
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.runTest
 import net.kusik.coroutines.transformations.reduce.reduceParallel
 import net.kusik.coroutines.transformations.test.ParallelMapListTest
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Test
 
-class ParallelReduceBenchmark : AbstractBenchmark() {
+@State(Scope.Benchmark)
+class ParallelReduceBenchmark {
 
     companion object {
         const val LIST_SIZE = 1000
@@ -15,37 +17,37 @@ class ParallelReduceBenchmark : AbstractBenchmark() {
 
     private val list = ParallelMapListTest.getRandomListOfSize(LIST_SIZE)
 
-    private val operation = { acc: Int, i: Int -> Thread.sleep(1); acc + i }
+    private val operation = { acc: Int, i: Int -> sleep(1); acc + i }
 
-    @Test
+    @Benchmark
     fun sequential() {
         list.reduce(operation)
     }
 
-    @Test
+    @Benchmark
     fun coroutineOnMain() {
-        runBlocking {
+        runTest {
             list.reduceParallel(1, operation)
         }
     }
 
-    @Test
+    @Benchmark
     fun coroutineOnThreadPool() {
-        runBlocking(Dispatchers.Default) {
+        runTest(Dispatchers.Default) {
             list.reduceParallel(1, operation)
         }
     }
 
-    @Test
+    @Benchmark
     fun coroutineOnThreadPoolChunked4() {
-        runBlocking(Dispatchers.Default) {
+        runTest(Dispatchers.Default) {
             list.reduceParallel(4, operation)
         }
     }
 
-    @Test
+    @Benchmark
     fun coroutineOnThreadPoolChunked8() {
-        runBlocking(Dispatchers.Default) {
+        runTest(Dispatchers.Default) {
             list.reduceParallel(8, operation)
         }
     }
