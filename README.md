@@ -1,5 +1,5 @@
 # Parallel Operations for Kotlin
-Parallel *map*, *reduce*, and various indexed and in-place operations on collections for Kotlin using coroutines.
+Parallel *map*, *reduce*, and various indexed and in-place operations on collections for Kotlin Multiplatform using coroutines.
 
 The parallel *map* implementation is called *.mapParallel()*. It is implemented like this.
 ```kotlin
@@ -28,7 +28,7 @@ which are processed each by a single thread. That benefits from data locality an
 It is particularly useful (pretty much needed for operations like sum) in the reduce operation when using multithreading,
 since each thread takes one chunk that it reduces on its own. After all coroutines finish, their results are then reduced again to the final result.
 
-## Gradle
+## Installation
 The library is published in the Maven Central repository.
 Include this line in your module build.gradle file.
 ```gradle
