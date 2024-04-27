@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform") version "1.9.23"
     id("org.jetbrains.kotlinx.benchmark") version "0.4.10"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.9.23"
+    id("maven-publish")
 }
 
 group = "net.kusik"
@@ -15,7 +16,7 @@ repositories {
 
 kotlin {
     jvm {
-        jvmToolchain(19)
+        jvmToolchain(11)
         withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
@@ -87,4 +88,17 @@ benchmark {
 // For benchmarks
 allOpen {
     annotation("org.openjdk.jmh.annotations.State")
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/cvb941/kotlin-parallel-operations")
+            credentials {
+                username = project.findProperty("gpr.user")?.toString() ?: System.getenv("GITHUB_ACTOR")
+                password = project.findProperty("gpr.key")?.toString() ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
 }
